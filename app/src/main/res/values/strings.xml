@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">imgur Gallery</string>
+
+    <string name="loading_images_progress_message">Loading images…</string>
+    <string name="loading_images_error_message">There was an error loading the images. Make sure you\'re connected to the Internet.</string>
+    <string name="try_again_text">Try again</string>
 </resources>

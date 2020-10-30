@@ -13,4 +13,29 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.ImgurGallery.ImageTitle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:background">@color/transparent_black</item>
+        <item name="android:lines">2</item>
+        <item name="android:ellipsize">end</item>
+
+        <item name="android:textAppearance">@style/Theme.ImgurGallery.ImageTitleAppearance</item>
+    </style>
+
+    <style name="Theme.ImgurGallery.ImageTitleAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Theme.ImgurGallery.MessageText" parent="Widget.MaterialComponents.TextView">
+        <item name="android:paddingStart">@dimen/small_margin</item>
+        <item name="android:paddingEnd">@dimen/small_margin</item>
+        <item name="android:textAlignment">center</item>
+
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+    </style>
 </resources>

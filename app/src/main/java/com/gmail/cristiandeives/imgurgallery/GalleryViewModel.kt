@@ -10,10 +10,17 @@ class GalleryViewModel : ViewModel() {
     private val _galleries = MutableLiveData<Resource<List<Gallery>>>()
     val galleries: LiveData<Resource<List<Gallery>>> = _galleries
 
+    var section = GallerySection.HOT
+        set(value) {
+            field = value
+
+            readGalleries()
+        }
+
     fun readGalleries() {
         _galleries.value = Resource.Loading()
 
-        Repository.getGalleryImages(object : AsyncCallback<List<Gallery>> {
+        Repository.getGalleryImages(section, object : AsyncCallback<List<Gallery>> {
             override fun onSuccess(response: List<Gallery>) {
                 _galleries.value = Resource.Success(response)
             }

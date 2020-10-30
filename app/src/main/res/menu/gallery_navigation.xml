@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/hot_section"
+        android:title="@string/hot_section_menu"
+        android:icon="@drawable/ic_whatshot" />
+    <item android:id="@+id/top_section"
+        android:title="@string/top_section_menu"
+        android:icon="@drawable/ic_star" />
+    <item android:id="@+id/user_section"
+        android:title="@string/user_section_menu"
+        android:icon="@drawable/ic_people" />
+</menu>

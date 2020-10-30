@@ -2,12 +2,14 @@ package com.gmail.cristiandeives.imgurgallery.data
 
 import android.util.Log
 import com.gmail.cristiandeives.imgurgallery.Gallery
+import com.gmail.cristiandeives.imgurgallery.GallerySection
 import com.gmail.cristiandeives.imgurgallery.data.retrofit.ImgurService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.Locale
 
 object Repository {
     private const val IMGUR_BASE_URL = "https://api.imgur.com/3/"
@@ -21,9 +23,9 @@ object Repository {
         .build()
     private val imgurService = retrofit.create(ImgurService::class.java)
 
-    fun getGalleryImages(cb: AsyncCallback<List<Gallery>>) {
+    fun getGalleryImages(section: GallerySection, cb: AsyncCallback<List<Gallery>>) {
         Log.d(TAG, "sending request to read galleries from imgur...")
-        imgurService.getGalleries().enqueue(object : Callback<ResponseRoot> {
+        imgurService.getGalleries(section).enqueue(object : Callback<ResponseRoot> {
             override fun onResponse(call: Call<ResponseRoot>, response: Response<ResponseRoot>) {
                 if (response.isSuccessful) {
                     Log.d(TAG, "request success; response = $response")

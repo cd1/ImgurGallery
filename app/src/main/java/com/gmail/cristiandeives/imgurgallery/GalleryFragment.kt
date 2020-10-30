@@ -11,11 +11,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gmail.cristiandeives.imgurgallery.databinding.FragmentGalleryBinding
 
-class GalleryFragment : Fragment(),
+open class GalleryFragment : Fragment(),
     View.OnClickListener {
 
     private lateinit var binding: FragmentGalleryBinding
-    private val activityViewModel by activityViewModels<GalleryViewModel>()
+    protected val activityViewModel by activityViewModels<GalleryViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.v(TAG, "> onCreateView(...)")
@@ -71,8 +71,6 @@ class GalleryFragment : Fragment(),
 
                 Log.v(TAG, "< galleries#observe(res=$res)")
             }
-
-            readGalleries()
         }
 
         Log.v(TAG, "< onViewCreated(...)")

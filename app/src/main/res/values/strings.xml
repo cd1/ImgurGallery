@@ -4,4 +4,12 @@
     <string name="loading_images_progress_message">Loading images…</string>
     <string name="loading_images_error_message">There was an error loading the images. Make sure you\'re connected to the Internet.</string>
     <string name="try_again_text">Try again</string>
+
+    <string name="hot_section_menu">Hot</string>
+    <string name="top_section_menu">Top</string>
+    <string name="user_section_menu">User generated</string>
+
+    <string name="hot_section_label">imgur — Hot</string>
+    <string name="top_section_label">imgur — Top</string>
+    <string name="user_section_label">imgur — User generated</string>
 </resources>

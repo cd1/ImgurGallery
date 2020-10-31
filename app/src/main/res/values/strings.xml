@@ -12,4 +12,6 @@
     <string name="hot_section_label">imgur — Hot</string>
     <string name="top_section_label">imgur — Top</string>
     <string name="user_section_label">imgur — User generated</string>
+
+    <string name="show_viral_menu">Show viral</string>
 </resources>

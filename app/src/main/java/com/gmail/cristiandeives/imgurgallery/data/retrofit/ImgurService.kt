@@ -7,9 +7,13 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ImgurService {
     @Headers("Authorization: Client-ID ${Repository.IMGUR_CLIENT_ID}")
     @GET("gallery/{section}/viral/day")
-    fun getGalleries(@Path("section") section: GallerySection): Call<ResponseRoot>
+    fun getGalleries(
+        @Path("section") section: GallerySection,
+        @Query("showViral") showViral: Boolean,
+    ): Call<ResponseRoot>
 }

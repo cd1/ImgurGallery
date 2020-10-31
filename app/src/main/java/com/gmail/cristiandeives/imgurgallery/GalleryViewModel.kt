@@ -17,10 +17,17 @@ class GalleryViewModel : ViewModel() {
             readGalleries()
         }
 
+    var shouldShowViral: Boolean = true
+        set(value) {
+            field = value
+
+            readGalleries()
+        }
+
     fun readGalleries() {
         _galleries.value = Resource.Loading()
 
-        Repository.getGalleryImages(section, object : AsyncCallback<List<Gallery>> {
+        Repository.getGalleryImages(section, shouldShowViral, object : AsyncCallback<List<Gallery>> {
             override fun onSuccess(response: List<Gallery>) {
                 _galleries.value = Resource.Success(response)
             }

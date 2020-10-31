@@ -23,9 +23,9 @@ object Repository {
         .build()
     private val imgurService = retrofit.create(ImgurService::class.java)
 
-    fun getGalleryImages(section: GallerySection, cb: AsyncCallback<List<Gallery>>) {
+    fun getGalleryImages(section: GallerySection, showViral: Boolean, cb: AsyncCallback<List<Gallery>>) {
         Log.d(TAG, "sending request to read galleries from imgur...")
-        imgurService.getGalleries(section).enqueue(object : Callback<ResponseRoot> {
+        imgurService.getGalleries(section, showViral).enqueue(object : Callback<ResponseRoot> {
             override fun onResponse(call: Call<ResponseRoot>, response: Response<ResponseRoot>) {
                 if (response.isSuccessful) {
                     Log.d(TAG, "request success; response = $response")

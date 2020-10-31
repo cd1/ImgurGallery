@@ -30,13 +30,26 @@ object Repository {
                 if (response.isSuccessful) {
                     Log.d(TAG, "request success; response = $response")
                     val galleries = response.body()?.data?.map { g ->
-                        val link = if (g.imagesCount == null) {
-                            g.link
+                        val link: String
+                        val description: String
+                        if (g.imagesCount == null) {
+                            link = g.link
+                            description = g.description.orEmpty()
                         } else {
-                            g.images?.firstOrNull()?.link ?: g.link
+                            val firstImage = g.images?.firstOrNull()
+                            link = firstImage?.link ?: g.link
+                            description = firstImage?.description ?: g.description.orEmpty()
                         }
 
-                        Gallery(id = g.id, title = g.title, imageUrl = link)
+                        Gallery(
+                            id = g.id,
+                            title = g.title,
+                            description = description,
+                            imageUrl = link,
+                            upvotes = g.ups,
+                            downvotes = g.downs,
+                            score = g.score
+                        )
                     }
                     cb.onSuccess(galleries ?: emptyList())
                 } else {

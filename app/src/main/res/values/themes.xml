@@ -38,4 +38,8 @@
 
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1</item>
     </style>
+
+    <style name="Theme.ImgurGallery.DetailsTitleAppearance" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

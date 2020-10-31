@@ -17,4 +17,28 @@
         android:id="@+id/user_section"
         android:name="com.gmail.cristiandeives.imgurgallery.UserGalleryFragment"
         android:label="@string/user_section_label" />
+
+    <activity
+        android:id="@+id/gallery_details_activity"
+        android:name="com.gmail.cristiandeives.imgurgallery.GalleryDetailsActivity"
+        android:label="@string/gallery_details_label">
+
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="upvotes"
+            app:argType="integer" />
+        <argument
+            android:name="downvotes"
+            app:argType="integer" />
+        <argument
+            android:name="score"
+            app:argType="integer" />
+    </activity>
 </navigation>

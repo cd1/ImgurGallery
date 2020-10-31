@@ -2,6 +2,7 @@ package com.gmail.cristiandeives.imgurgallery
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -32,6 +33,13 @@ class GalleryAdapter : RecyclerView.Adapter<GalleryViewHolder>() {
                 .placeholder(R.drawable.gallery_background)
                 .error(R.drawable.gallery_error_background)
                 .into(holder.imageView)
+
+        holder.imageView.setOnClickListener {
+            val args = GalleryDetailsActivityArgs(
+                data.imageUrl, data.title, data.description, data.upvotes, data.downvotes, data.score
+            )
+            holder.imageView.findNavController().navigate(R.id.gallery_details_activity, args.toBundle())
+        }
     }
 
     override fun getItemCount() = galleries.size

@@ -2,6 +2,7 @@ package com.gmail.cristiandeives.imgurgallery
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -11,9 +12,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.gmail.cristiandeives.imgurgallery.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(),
-    NavController.OnDestinationChangedListener {
+    NavController.OnDestinationChangedListener,
+    BottomNavigationView.OnNavigationItemReselectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.v(TAG, "> onCreate(...)")
@@ -25,6 +28,7 @@ class MainActivity : AppCompatActivity(),
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
         setupActionBarWithNavController(navController, AppBarConfiguration(TOP_LEVEL_FRAGMENTS))
         navController.addOnDestinationChangedListener(this)
+        binding.bottomNavigationView.setOnNavigationItemReselectedListener(this)
 
         Log.v(TAG, "< onCreate(...)")
     }
@@ -43,6 +47,22 @@ class MainActivity : AppCompatActivity(),
         Log.i(TAG, "user changed section to $destination")
 
         Log.v(TAG, "< onDestinationChanged(...)")
+    }
+
+    override fun onNavigationItemReselected(item: MenuItem) {
+        Log.v(TAG, "> onNavigationItemReselected(item=$item)")
+
+        Log.i(TAG, "user scrolled current section (${item.title}) to the top")
+
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+            ?.childFragmentManager
+            ?.fragments
+            ?.first()
+        if (currentFragment is GalleryFragment) {
+            currentFragment.scrollContentToTop()
+        }
+
+        Log.v(TAG, "< onNavigationItemReselected(item=$item)")
     }
 
     companion object {

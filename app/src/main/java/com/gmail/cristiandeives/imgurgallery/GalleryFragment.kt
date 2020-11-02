@@ -99,6 +99,10 @@ open class GalleryFragment : Fragment(),
         activityViewModel.readGalleries()
     }
 
+    fun scrollContentToTop() {
+        binding.resultRecycler.smoothScrollToPosition(0)
+    }
+
     companion object {
         private val TAG = GalleryFragment::class.java.simpleName
     }

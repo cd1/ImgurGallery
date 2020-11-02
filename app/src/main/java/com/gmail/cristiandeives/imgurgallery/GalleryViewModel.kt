@@ -17,6 +17,10 @@ class GalleryViewModel : ViewModel() {
             readGalleries()
         }
 
+    var galleryLayout = MutableLiveData<GalleryLayout>().apply {
+        value = DEFAULT_GALLERY_LAYOUT
+    }
+
     var shouldShowViral: Boolean = true
         set(value) {
             field = value
@@ -36,5 +40,9 @@ class GalleryViewModel : ViewModel() {
                 _galleries.value = Resource.Error(ex)
             }
         })
+    }
+
+    companion object {
+        val DEFAULT_GALLERY_LAYOUT = GalleryLayout.GRID
     }
 }

@@ -2,7 +2,9 @@ package com.gmail.cristiandeives.imgurgallery
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity(),
     NavController.OnDestinationChangedListener,
     BottomNavigationView.OnNavigationItemReselectedListener {
 
+    private val viewModel by viewModels<GalleryViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.v(TAG, "> onCreate(...)")
         super.onCreate(savedInstanceState)
@@ -31,6 +35,63 @@ class MainActivity : AppCompatActivity(),
         binding.bottomNavigationView.setOnNavigationItemReselectedListener(this)
 
         Log.v(TAG, "< onCreate(...)")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        Log.v(TAG, "> onCreateOptionsMenu(...)")
+
+        menuInflater.inflate(R.menu.gallery_options, menu)
+
+        val shouldDisplayMenu = true
+        Log.v(TAG, "< onCreateOptionsMenu(...): $shouldDisplayMenu")
+        return shouldDisplayMenu
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        Log.v(TAG, "> onPrepareOptionsMenu(...)")
+
+        val galleryLayout = viewModel.galleryLayout.value
+            ?: GalleryViewModel.DEFAULT_GALLERY_LAYOUT
+        val selectedItemId = when (galleryLayout) {
+            GalleryLayout.GRID -> R.id.layout_grid_item
+            GalleryLayout.LIST -> R.id.layout_list_item
+            GalleryLayout.STAGGERED -> R.id.layout_staggered_item
+        }
+        menu.findItem(selectedItemId).isChecked = true
+
+        val shouldDisplayMenu = true
+        Log.v(TAG, "< onPrepareOptionsMenu(...)")
+        return shouldDisplayMenu
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.v(TAG, "> onOptionsItemSelected(item=$item)")
+
+        val handled = when (item.itemId) {
+            R.id.layout_grid_item, R.id.layout_list_item, R.id.layout_staggered_item -> {
+                val newLayout = when (item.itemId) {
+                    R.id.layout_grid_item -> GalleryLayout.GRID
+                    R.id.layout_list_item -> GalleryLayout.LIST
+                    R.id.layout_staggered_item -> GalleryLayout.STAGGERED
+                    else -> GalleryViewModel.DEFAULT_GALLERY_LAYOUT
+                }
+
+                Log.i(TAG, "user changed layout to $newLayout")
+                viewModel.galleryLayout.value = newLayout
+
+                // we need to call invalidateOptionsMenu to trigger onPrepareOptionsMenu
+                // in order to update the current layout selection next time the user
+                // opens this menu; as the layout menu item is always displayed on the ActionBar,
+                // the system doesn't call onPrepareOptionsMenu every time the menu is clicked
+                invalidateOptionsMenu()
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+        Log.v(TAG, "< onOptionsItemSelected(item=$item): $handled")
+        return handled
     }
 
     override fun onBackPressed() {

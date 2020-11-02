@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.gmail.cristiandeives.imgurgallery.databinding.FragmentGalleryBinding
 
 open class GalleryFragment : Fragment(),
@@ -33,18 +35,21 @@ open class GalleryFragment : Fragment(),
         Log.v(TAG, "> onViewCreated(...)")
         super.onViewCreated(view, savedInstanceState)
 
-        val context = requireContext()
-        val galleryLayout = GridLayoutManager(context, 2)
         val galleryAdapter = GalleryAdapter()
 
-        binding.resultRecycler.apply {
-            layoutManager = galleryLayout
-            adapter = galleryAdapter
-        }
+        binding.resultRecycler.adapter = galleryAdapter
         binding.tryAgainButton.setOnClickListener(this)
         binding.swipeLayout.setOnRefreshListener(this)
 
         activityViewModel.apply {
+            galleryLayout.observe(viewLifecycleOwner) { layout: GalleryLayout? ->
+                Log.v(TAG, "> galleryLayout#observe(layout=$layout)")
+
+                layout?.let { updateGalleryLayout(it) }
+
+                Log.v(TAG, "< galleryLayout#observe(layout=$layout)")
+            }
+
             galleries.observe(viewLifecycleOwner) { res: Resource<List<Gallery>>? ->
                 Log.v(TAG, "> galleries#observe(res=$res)")
 
@@ -76,7 +81,7 @@ open class GalleryFragment : Fragment(),
                         binding.swipeLayout.isRefreshing = true
 
                         res.exception?.consume()?.message?.let { errorMsg ->
-                            Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -101,6 +106,19 @@ open class GalleryFragment : Fragment(),
 
     fun scrollContentToTop() {
         binding.resultRecycler.smoothScrollToPosition(0)
+    }
+
+    private fun updateGalleryLayout(layout: GalleryLayout) {
+        binding.resultRecycler.apply {
+            layoutManager = when (layout) {
+                GalleryLayout.GRID -> GridLayoutManager(requireContext(), 2)
+                GalleryLayout.LIST -> LinearLayoutManager(requireContext())
+                GalleryLayout.STAGGERED -> StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            }
+
+            // this is needed so the views are correctly reloaded...
+            adapter = adapter
+        }
     }
 
     companion object {

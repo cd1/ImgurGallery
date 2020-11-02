@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="@string/gallery_layout_menu"
+        android:icon="@drawable/ic_view_compact"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/layout_grid_item"
+                    android:title="@string/grid_layout" />
+                <item android:id="@+id/layout_list_item"
+                    android:title="@string/list_layout" />
+                <item android:id="@+id/layout_staggered_item"
+                    android:title="@string/staggered_layout" />
+            </group>
+        </menu>
+    </item>
+</menu>

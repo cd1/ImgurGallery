@@ -13,6 +13,10 @@
     <string name="top_section_label">imgur — Top</string>
     <string name="user_section_label">imgur — User generated</string>
 
+    <string name="gallery_layout_menu">Gallery layout</string>
+    <string name="grid_layout">Grid</string>
+    <string name="list_layout">List</string>
+    <string name="staggered_layout">Staggered</string>
     <string name="show_viral_menu">Show viral</string>
 
     <string name="gallery_details_label">Gallery details</string>

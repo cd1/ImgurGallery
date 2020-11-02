@@ -1,0 +1,36 @@
+Key decisions:
+
+- I realized the imgur galleries may actually contain more than one image (and
+even that is not in a standard format); I decided to display only the first
+image for simplicity.
+
+- The ViewModel is shared by all fragments in the MainActivity; that allows the
+data (e.g. current sorting criteria, etc) to be easily persisted across
+configuration changes;
+
+- I didn't want the view classes to deal with Retrofit details, so I created the
+AsyncCallback interface to wrap the Retrofit results; it makes it easier to use
+a different HTTP request library in the future. All Retrofit interaction is done
+in Repository, and the view classes only use that class to access data.
+
+- I used Android Jetpack Navigation to handle the navigation between the screens
+(instead of the classic startActivity(Intent) to start Activities, and
+FragmentManager.beginTransaction to display Fragments). But at the end of the
+day, I don't know if it was the right choice for this app specifically, I think
+it would have been a little easier without it.
+
+- For the main screen, I used thumbnail URLs instead of the URLs provided by the
+API to download the images. That saved more than 90% of the network bandwith in
+my tests. When the user opens the details screen, the full image is
+then downloaded.
+
+- When the user taps an image to see more details, the image info is passed to
+the details Activity instead of being redownloaded.
+
+- The image caching was done by default by the library Glide. That was one of the
+reasons I chose it.
+
+If I had more time, I would have displayed all images in the gallery (not just
+one) and worked better on the GIF/MP4 behavior of some images.
+
+It took aproximately 8 hours for me to perform the task.

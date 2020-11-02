@@ -109,11 +109,13 @@ open class GalleryFragment : Fragment(),
     }
 
     private fun updateGalleryLayout(layout: GalleryLayout) {
+        val gridColumns = resources.getInteger(R.integer.grid_columns_count)
+
         binding.resultRecycler.apply {
             layoutManager = when (layout) {
-                GalleryLayout.GRID -> GridLayoutManager(requireContext(), 2)
+                GalleryLayout.GRID -> GridLayoutManager(requireContext(), gridColumns)
                 GalleryLayout.LIST -> LinearLayoutManager(requireContext())
-                GalleryLayout.STAGGERED -> StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                GalleryLayout.STAGGERED -> StaggeredGridLayoutManager(gridColumns, StaggeredGridLayoutManager.VERTICAL)
             }
 
             // this is needed so the views are correctly reloaded...

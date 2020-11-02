@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Galerie imgur</string>
+
+    <string name="loading_images_progress_message">Bilder werden geladen…</string>
+    <string name="loading_images_error_message">Es gab einen Fehler beim Laden der Bilder. Stellen Sie sicher, dass Sie verbunden mit dem Internet sind.</string>
+    <string name="try_again_text">Erneut versuchen</string>
+
+    <string name="hot_section_menu">Angesagt</string>
+    <string name="top_section_menu">Bestbewertet</string>
+    <string name="user_section_menu">Nutzgeneriert</string>
+
+    <string name="hot_section_label">imgur — Angesagt</string>
+    <string name="top_section_label">imgur — Bestbewertet</string>
+    <string name="user_section_label">imgur — Nutzgeneriert</string>
+
+    <string name="gallery_layout_menu">Layout der Galerie</string>
+    <string name="grid_layout">Grid</string>
+    <string name="list_layout">Liste</string>
+    <string name="staggered_layout">Staggered</string>
+    <string name="show_viral_menu">Virale Bilder anzeigen</string>
+
+    <string name="gallery_sort_menu">Sortieren</string>
+    <string name="viral_sort">Viral</string>
+    <string name="top_sort">Bestbewertet</string>
+    <string name="time_sort">Zeit</string>
+    <string name="rising_sort">Aufsteigend</string>
+
+    <string name="gallery_top_window_menu">Zeitfenster</string>
+    <string name="day_top_window">Vergangener Tag</string>
+    <string name="week_top_window">Vergangene Woche</string>
+    <string name="month_top_window">Vergangener Monat</string>
+    <string name="year_top_window">Vergangenes Jahr</string>
+    <string name="all_top_window">Alle Zeit</string>
+
+    <string name="gallery_details_label">Details der Galerie</string>
+</resources>

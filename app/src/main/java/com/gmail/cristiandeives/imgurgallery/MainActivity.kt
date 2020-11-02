@@ -52,12 +52,20 @@ class MainActivity : AppCompatActivity(),
 
         val galleryLayout = viewModel.galleryLayout.value
             ?: GalleryViewModel.DEFAULT_GALLERY_LAYOUT
-        val selectedItemId = when (galleryLayout) {
+        val selectedLayoutItemId = when (galleryLayout) {
             GalleryLayout.GRID -> R.id.layout_grid_item
             GalleryLayout.LIST -> R.id.layout_list_item
             GalleryLayout.STAGGERED -> R.id.layout_staggered_item
         }
-        menu.findItem(selectedItemId).isChecked = true
+        menu.findItem(selectedLayoutItemId).isChecked = true
+
+        val selectedSortItemId = when (viewModel.sort) {
+            GallerySortBy.VIRAL -> R.id.sort_viral_item
+            GallerySortBy.TOP -> R.id.sort_top_item
+            GallerySortBy.TIME -> R.id.sort_time_item
+            GallerySortBy.RISING -> R.id.sort_rising_item
+        }
+        menu.findItem(selectedSortItemId).isChecked = true
 
         val shouldDisplayMenu = true
         Log.v(TAG, "< onPrepareOptionsMenu(...)")
@@ -78,6 +86,25 @@ class MainActivity : AppCompatActivity(),
 
                 Log.i(TAG, "user changed layout to $newLayout")
                 viewModel.galleryLayout.value = newLayout
+
+                // we need to call invalidateOptionsMenu to trigger onPrepareOptionsMenu
+                // in order to update the current layout selection next time the user
+                // opens this menu; as the layout menu item is always displayed on the ActionBar,
+                // the system doesn't call onPrepareOptionsMenu every time the menu is clicked
+                invalidateOptionsMenu()
+
+                true
+            }
+            R.id.sort_viral_item, R.id.sort_top_item, R.id.sort_time_item, R.id.sort_rising_item -> {
+                val newSort = when (item.itemId) {
+                    R.id.sort_viral_item -> GallerySortBy.VIRAL
+                    R.id.sort_top_item -> GallerySortBy.TOP
+                    R.id.sort_time_item -> GallerySortBy.TIME
+                    R.id.sort_rising_item -> GallerySortBy.RISING
+                    else -> GalleryViewModel.DEFAULT_GALLERY_SORT
+                }
+                Log.i(TAG, "user changed sort criteria to $newSort")
+                viewModel.sort = newSort
 
                 // we need to call invalidateOptionsMenu to trigger onPrepareOptionsMenu
                 // in order to update the current layout selection next time the user

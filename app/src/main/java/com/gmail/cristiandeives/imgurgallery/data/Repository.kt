@@ -3,6 +3,7 @@ package com.gmail.cristiandeives.imgurgallery.data
 import android.util.Log
 import com.gmail.cristiandeives.imgurgallery.Gallery
 import com.gmail.cristiandeives.imgurgallery.GallerySection
+import com.gmail.cristiandeives.imgurgallery.GallerySortBy
 import com.gmail.cristiandeives.imgurgallery.data.retrofit.ImgurService
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,9 +23,9 @@ object Repository {
         .build()
     private val imgurService = retrofit.create(ImgurService::class.java)
 
-    fun getGalleryImages(section: GallerySection, showViral: Boolean, cb: AsyncCallback<List<Gallery>>) {
+    fun getGalleryImages(section: GallerySection, sort: GallerySortBy, showViral: Boolean, cb: AsyncCallback<List<Gallery>>) {
         Log.d(TAG, "sending request to read galleries from imgur...")
-        imgurService.getGalleries(section, showViral).enqueue(object : Callback<ResponseRoot> {
+        imgurService.getGalleries(section, sort, showViral).enqueue(object : Callback<ResponseRoot> {
             override fun onResponse(call: Call<ResponseRoot>, response: Response<ResponseRoot>) {
                 if (response.isSuccessful) {
                     Log.d(TAG, "request success; response = $response")

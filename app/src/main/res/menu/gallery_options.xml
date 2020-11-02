@@ -16,4 +16,23 @@
             </group>
         </menu>
     </item>
+
+    <item
+        android:title="@string/gallery_sort_menu"
+        android:icon="@drawable/ic_sort"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/sort_viral_item"
+                    android:title="@string/viral_sort" />
+                <item android:id="@+id/sort_top_item"
+                    android:title="@string/top_sort" />
+                <item android:id="@+id/sort_time_item"
+                    android:title="@string/time_sort" />
+                <item android:id="@+id/sort_rising_item"
+                    android:title="@string/rising_sort" />
+            </group>
+        </menu>
+    </item>
 </menu>

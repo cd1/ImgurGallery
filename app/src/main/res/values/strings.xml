@@ -19,5 +19,11 @@
     <string name="staggered_layout">Staggered</string>
     <string name="show_viral_menu">Show viral</string>
 
+    <string name="gallery_sort_menu">Sort</string>
+    <string name="viral_sort">Viral</string>
+    <string name="top_sort">Top</string>
+    <string name="time_sort">Time</string>
+    <string name="rising_sort">Rising</string>
+
     <string name="gallery_details_label">Gallery details</string>
 </resources>

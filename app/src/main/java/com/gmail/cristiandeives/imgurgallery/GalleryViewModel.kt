@@ -14,6 +14,17 @@ class GalleryViewModel : ViewModel() {
         set(value) {
             field = value
 
+            if (sort == GallerySortBy.RISING && section != GallerySection.USER) {
+                sort = DEFAULT_GALLERY_SORT
+            } else {
+                readGalleries()
+            }
+        }
+
+    var sort = DEFAULT_GALLERY_SORT
+        set(value) {
+            field = value
+
             readGalleries()
         }
 
@@ -31,7 +42,7 @@ class GalleryViewModel : ViewModel() {
     fun readGalleries() {
         _galleries.value = Resource.Loading()
 
-        Repository.getGalleryImages(section, shouldShowViral, object : AsyncCallback<List<Gallery>> {
+        Repository.getGalleryImages(section, sort, shouldShowViral, object : AsyncCallback<List<Gallery>> {
             override fun onSuccess(response: List<Gallery>) {
                 _galleries.value = Resource.Success(response)
             }
@@ -44,5 +55,6 @@ class GalleryViewModel : ViewModel() {
 
     companion object {
         val DEFAULT_GALLERY_LAYOUT = GalleryLayout.GRID
+        val DEFAULT_GALLERY_SORT = GallerySortBy.VIRAL
     }
 }

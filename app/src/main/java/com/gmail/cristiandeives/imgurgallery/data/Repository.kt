@@ -9,7 +9,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.Locale
 
 object Repository {
     private const val IMGUR_BASE_URL = "https://api.imgur.com/3/"
@@ -41,11 +40,27 @@ object Repository {
                             description = firstImage?.description ?: g.description.orEmpty()
                         }
 
+                        // for every http://i.imgur.com/image.png, there seems to be a
+                        // http://i.imgur.com/imagel.png (notice the extra 'l' in the file name)
+                        // containing a smaller version of that file
+                        val indexLastSlash = link.lastIndexOf('/')
+                        val indexLastDot = link.lastIndexOf('.')
+
+                        val smallImageLink = if (indexLastSlash >= 0 && indexLastDot >= 0
+                            && g.imagesCount != null
+                            && link.substring(indexLastSlash + 1, indexLastDot) == g.images?.firstOrNull()?.id) {
+
+                            "${link.substring(0, indexLastDot)}l${link.substring(indexLastDot)}"
+                        } else {
+                            link
+                        }
+
                         Gallery(
                             id = g.id,
                             title = g.title,
                             description = description,
                             imageUrl = link,
+                            smallImageUrl = smallImageLink,
                             upvotes = g.ups,
                             downvotes = g.downs,
                             score = g.score

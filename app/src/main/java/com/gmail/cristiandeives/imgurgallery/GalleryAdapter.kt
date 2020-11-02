@@ -28,7 +28,7 @@ class GalleryAdapter : RecyclerView.Adapter<GalleryViewHolder>() {
         val data = galleries[position]
         holder.title = data.title
         Glide.with(holder.context)
-                .load(data.imageUrl)
+                .load(data.smallImageUrl)
                 .centerCrop()
                 .placeholder(R.drawable.gallery_background)
                 .error(R.drawable.gallery_error_background)

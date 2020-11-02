@@ -59,17 +59,23 @@
                 app:iconGravity="textStart" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/result_recycler"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/large_margin"
-            android:clipToPadding="false"
-            android:visibility="gone"
-            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:spanCount="2"
-            tools:itemCount="10"
-            tools:listitem="@layout/gallery_view_holder"
-            tools:visibility="visible"/>
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/result_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/large_margin"
+                android:clipToPadding="false"
+                android:visibility="gone"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:spanCount="2"
+                tools:itemCount="10"
+                tools:listitem="@layout/gallery_view_holder"
+                tools:visibility="visible"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </FrameLayout>
 </layout>

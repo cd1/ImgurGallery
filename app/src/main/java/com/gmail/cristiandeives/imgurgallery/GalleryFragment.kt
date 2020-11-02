@@ -9,10 +9,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.gmail.cristiandeives.imgurgallery.databinding.FragmentGalleryBinding
 
 open class GalleryFragment : Fragment(),
-    View.OnClickListener {
+    View.OnClickListener,
+    SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var binding: FragmentGalleryBinding
     protected val activityViewModel by activityViewModels<GalleryViewModel>()
@@ -40,6 +42,7 @@ open class GalleryFragment : Fragment(),
             adapter = galleryAdapter
         }
         binding.tryAgainButton.setOnClickListener(this)
+        binding.swipeLayout.setOnRefreshListener(this)
 
         activityViewModel.apply {
             galleries.observe(viewLifecycleOwner) { res: Resource<List<Gallery>>? ->
@@ -48,13 +51,20 @@ open class GalleryFragment : Fragment(),
                 when (res) {
                     is Resource.Loading -> {
                         binding.errorView.visibility = View.GONE
-                        binding.resultRecycler.visibility = View.GONE
-                        binding.progressView.visibility = View.VISIBLE
+                        if (binding.resultRecycler.childCount > 0) {
+                            binding.resultRecycler.visibility = View.VISIBLE
+                            binding.swipeLayout.isRefreshing = true
+                        } else {
+                            binding.resultRecycler.visibility = View.GONE
+                            binding.progressView.visibility = View.VISIBLE
+                        }
                     }
                     is Resource.Success -> {
                         binding.progressView.visibility = View.GONE
                         binding.errorView.visibility = View.GONE
                         binding.resultRecycler.visibility = View.VISIBLE
+
+                        binding.swipeLayout.isRefreshing = false
 
                         res.data?.let { galleryAdapter.galleries = it }
                     }
@@ -62,6 +72,8 @@ open class GalleryFragment : Fragment(),
                         binding.progressView.visibility = View.GONE
                         binding.resultRecycler.visibility = View.GONE
                         binding.errorView.visibility = View.VISIBLE
+
+                        binding.swipeLayout.isRefreshing = true
 
                         res.exception?.consume()?.message?.let { errorMsg ->
                             Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
@@ -80,6 +92,11 @@ open class GalleryFragment : Fragment(),
         when (v.id) {
             R.id.try_again_button -> activityViewModel.readGalleries()
         }
+    }
+
+    override fun onRefresh() {
+        Log.i(TAG, "user refreshed the data")
+        activityViewModel.readGalleries()
     }
 
     companion object {

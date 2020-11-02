@@ -28,6 +28,13 @@ class GalleryViewModel : ViewModel() {
             readGalleries()
         }
 
+    var topWindow = GalleryTopWindow.DAY
+        set(value) {
+            field = value
+
+            readGalleries()
+        }
+
     var galleryLayout = MutableLiveData<GalleryLayout>().apply {
         value = DEFAULT_GALLERY_LAYOUT
     }
@@ -42,7 +49,7 @@ class GalleryViewModel : ViewModel() {
     fun readGalleries() {
         _galleries.value = Resource.Loading()
 
-        Repository.getGalleryImages(section, sort, shouldShowViral, object : AsyncCallback<List<Gallery>> {
+        Repository.getGalleryImages(section, sort, topWindow, shouldShowViral, object : AsyncCallback<List<Gallery>> {
             override fun onSuccess(response: List<Gallery>) {
                 _galleries.value = Resource.Success(response)
             }
@@ -56,5 +63,6 @@ class GalleryViewModel : ViewModel() {
     companion object {
         val DEFAULT_GALLERY_LAYOUT = GalleryLayout.GRID
         val DEFAULT_GALLERY_SORT = GallerySortBy.VIRAL
+        val DEFAULT_GALLERY_TOP_WINDOW = GalleryTopWindow.DAY
     }
 }

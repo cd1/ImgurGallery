@@ -25,5 +25,12 @@
     <string name="time_sort">Time</string>
     <string name="rising_sort">Rising</string>
 
+    <string name="gallery_top_window_menu">Window</string>
+    <string name="day_top_window">Past day</string>
+    <string name="week_top_window">Past week</string>
+    <string name="month_top_window">Past month</string>
+    <string name="year_top_window">Past year</string>
+    <string name="all_top_window">All time</string>
+
     <string name="gallery_details_label">Gallery details</string>
 </resources>

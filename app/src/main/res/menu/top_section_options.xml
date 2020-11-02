@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="@string/gallery_top_window_menu"
+        android:icon="@drawable/ic_date_range"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/window_day"
+                    android:title="@string/day_top_window" />
+                <item android:id="@+id/window_week"
+                    android:title="@string/week_top_window" />
+                <item android:id="@+id/window_month"
+                    android:title="@string/month_top_window" />
+                <item android:id="@+id/window_year"
+                    android:title="@string/year_top_window" />
+                <item android:id="@+id/window_all"
+                    android:title="@string/all_top_window" />
+            </group>
+        </menu>
+    </item>
+</menu>
